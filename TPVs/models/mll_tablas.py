@@ -15,3 +15,4 @@ def crear_tabla_destino(nombre_tabla, campos, conn_mysql):
     cursor.execute(query)
     conn_mysql.commit()
     cursor.close()
+    
