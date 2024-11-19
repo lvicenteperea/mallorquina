@@ -14,7 +14,7 @@ def ejecutar_proceso():
     actualizar_en_ejecucion(1)
 
     try:
-        conn_mysql = conexion_mysql()
+        conn_mysql = conexion_mysql("General")
         cursor_mysql = conn_mysql.cursor(dictionary=True)
 
         cursor_mysql.execute("SELECT * FROM mll_tablas_bbdd")
@@ -23,7 +23,6 @@ def ejecutar_proceso():
         for tabla in tablas_bbdd:
             ultima_actualizacion = tabla["Fecha_Ultima_Actualizacion"]
             intervalo = tabla["Cada_Cuanto_Ejecutar"]
-            print("sync.06")
 
             if datetime.now() > ultima_actualizacion + timedelta(days=intervalo):
                 # print(f"Procesando tabla: {tabla['ID_Tabla']}")

@@ -3,8 +3,9 @@ import pyodbc
 
 from config.config import MYSQL_CONFIG
 
-def conexion_mysql():
-    print('DB.Config.01', MYSQL_CONFIG)
+def conexion_mysql(ayuda = "Sin ayuda"):
+    print('conexion_mysql.'+ayuda, MYSQL_CONFIG)
+
     return mysql.connector.connect(**MYSQL_CONFIG)
 
 def conexion_sqlserver(conexion_json):

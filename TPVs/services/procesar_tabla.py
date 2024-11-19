@@ -1,7 +1,6 @@
 from models.mll_tablas import obtener_campos_tabla, crear_tabla_destino, drop_tabla
 from models.mll_cfg_bbdd import obtener_conexion_bbdd_origen
 from config.database import conexion_sqlserver
-from config.database import conexion_mysql
 
 def procesar_tabla(tabla, conn_mysql):
     # Obtener configuración y campos necesarios
@@ -27,7 +26,7 @@ def procesar_tabla(tabla, conn_mysql):
     crear_tabla_destino(conn_mysql, nombre_tabla_destino, campos)
 
     # Buscamos la conexión que necesitamos para esta bbdd origen
-    bbdd_config = obtener_conexion_bbdd_origen(tabla["ID_BBDD"])
+    bbdd_config = obtener_conexion_bbdd_origen(conn_mysql,tabla["ID_BBDD"])
 
     # conextamos con esta bbdd origen
     conn_sqlserver = conexion_sqlserver(bbdd_config)
@@ -47,6 +46,9 @@ def procesar_tabla(tabla, conn_mysql):
             INSERT INTO {nombre_tabla_destino} ({', '.join(columnas_mysql)})
             VALUES ({', '.join(['%s'] * len(columnas_mysql))})
         """
+
+        print('Procesar Tabla.01', insert_query)
+
         for registro in registros:
             registro_destino = list(registro) + [tabla["ID_BBDD"]]  # Añadimos el origen
             print("procesar_tabla.09.1", insert_query)
