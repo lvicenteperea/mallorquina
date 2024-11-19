@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from config.database import obtener_configuracion_mysql
+from config.database import conexion_mysql
 from models.mll_cfg import obtener_configuracion_general, actualizar_en_ejecucion
 from services.sendgrid_service import enviar_email
 from services.procesar_tabla import procesar_tabla
@@ -14,27 +14,30 @@ def ejecutar_proceso():
     actualizar_en_ejecucion(1)
 
     try:
-        conn = obtener_configuracion_mysql()
-        cursor = conn.cursor(dictionary=True)
+        conn_mysql = conexion_mysql()
+        cursor_mysql = conn_mysql.cursor(dictionary=True)
 
-        cursor.execute("SELECT * FROM mll_tablas_bbdd")
-        tablas_bbdd = cursor.fetchall()
+        cursor_mysql.execute("SELECT * FROM mll_tablas_bbdd")
+        tablas_bbdd = cursor_mysql.fetchall()
 
         for tabla in tablas_bbdd:
             ultima_actualizacion = tabla["Fecha_Ultima_Actualizacion"]
             intervalo = tabla["Cada_Cuanto_Ejecutar"]
+            print("sync.06")
 
             if datetime.now() > ultima_actualizacion + timedelta(days=intervalo):
-                print(f"Procesando tabla: {tabla['ID_Tabla']}")
+                # print(f"Procesando tabla: {tabla['ID_Tabla']}")
+                print(f"Procesando tabla: {tabla}")
 
                 # Aquí va la lógica específica para cada tabla
-                procesar_tabla(tabla, conn)
+                procesar_tabla(tabla, conn_mysql)
 
-                cursor.execute(
+                print("sync.07")
+                cursor_mysql.execute(
                     "UPDATE mll_tablas_bbdd SET Fecha_Ultima_Actualizacion = %s WHERE ID = %s",
                     (datetime.now(), tabla["ID"])
                 )
-                conn.commit()
+                conn_mysql.commit()
 
     except Exception as e:
         print(f"Error durante el proceso: {e}")
