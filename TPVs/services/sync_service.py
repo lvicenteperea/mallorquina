@@ -6,7 +6,12 @@ from services.procesar_tabla import procesar_tabla
 
 def ejecutar_proceso():
     config = obtener_configuracion_general()
+    print(config)
 
+    if not config.get("En_Ejecucion"):
+        print("No se han encontrado datos de configuración")
+        return
+    
     if config["En_Ejecucion"]:
         print("El proceso ya está en ejecución.")
         return
