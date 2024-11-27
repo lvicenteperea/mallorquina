@@ -5,6 +5,7 @@ from config.config import MYSQL_CONFIG
 
 def conexion_mysql(ayuda = "Sin ayuda"):
     print('conexion_mysql.'+ayuda, MYSQL_CONFIG)
+    print("")
 
     return mysql.connector.connect(**MYSQL_CONFIG)
 

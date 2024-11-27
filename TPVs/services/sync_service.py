@@ -6,10 +6,10 @@ from services.procesar_tabla import procesar_tabla
 
 def ejecutar_proceso():
     config = obtener_configuracion_general()
-    print(config)
 
-    if not config.get("En_Ejecucion"):
-        print("No se han encontrado datos de configuración")
+
+    if not config.get("ID", False):
+        print("No se han encontrado datos de configuración", config["En_Ejecucion"])
         return
     
     if config["En_Ejecucion"]:
@@ -31,7 +31,9 @@ def ejecutar_proceso():
 
             if datetime.now() > ultima_actualizacion + timedelta(days=intervalo):
                 # print(f"Procesando tabla: {tabla['ID_Tabla']}")
+                print("---------------------------------------------------------------------------------------")
                 print(f"Procesando tabla: {tabla}")
+                print("---------------------------------------------------------------------------------------")
 
                 # Aquí va la lógica específica para cada tabla
                 procesar_tabla(tabla, conn_mysql)

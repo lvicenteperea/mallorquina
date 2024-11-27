@@ -47,8 +47,6 @@ def procesar_tabla(tabla, conn_mysql):
             VALUES ({', '.join(['%s'] * len(columnas_mysql))})
         """
 
-        print('Procesar Tabla.01', insert_query)
-
         for registro in registros:
             registro_destino = list(registro) + [tabla["ID_BBDD"]]  # Añadimos el origen
             print("procesar_tabla.09.1", insert_query)
