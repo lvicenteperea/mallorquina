@@ -96,7 +96,7 @@ CREATE TABLE `mll_cfg_bbdd` (
 
 LOCK TABLES `mll_cfg_bbdd` WRITE;
 /*!40000 ALTER TABLE `mll_cfg_bbdd` DISABLE KEYS */;
-INSERT INTO `mll_cfg_bbdd` VALUES (1,'Velázquez','{\"host\": \"2.136.127.87\", \"port\": \"1433\", \"user\": \"Informes_Ext\", \"database\": \"LMVELAZQUEZ\", \"password\": \"e7LDKH8PzQaGHUI\"}','2024-11-16 15:29:37'),(2,'Quevedo','{\"host\": \"81.45.36.133\", \"port\": \"1433\", \"user\": \"Informes_Ext\", \"database\": \"LMQUEVEDO\", \"password\": \"e7LDKH8PzQaGHUI\"}','2024-11-20 15:29:37');
+INSERT INTO `mll_cfg_bbdd` VALUES (1,'Velázquez','{\"host\": \"\", \"port\": \"\", \"user\": \"\", \"database\": \"\", \"password\": \"\"}','2024-11-16 15:29:37'),(2,'Quevedo','{\"host\": \"\", \"port\": \"\", \"user\": \"\", \"database\": \"\", \"password\": \"\"}','2024-11-20 15:29:37');
 /*!40000 ALTER TABLE `mll_cfg_bbdd` ENABLE KEYS */;
 UNLOCK TABLES;
 
