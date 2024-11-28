@@ -12,7 +12,7 @@ def procesar_tabla(tabla, conn_mysql):
     tabla_config = cursor_mysql.fetchone()
     nombre_tabla = tabla_config["Tabla_Origen"]
     nombre_tabla_destino = tabla_config["Tabla_Destino"]
-    borrar_tabla = tabla_config["Borrar_Tabla"]
+    # borrar_tabla = tabla_config["Borrar_Tabla"]
     cursor_mysql.close()
 
     # Obtener campos de la tabla
@@ -52,8 +52,8 @@ def procesar_tabla(tabla, conn_mysql):
 
         for registro in registros:
             registro_destino = list(registro) + [tabla["ID_BBDD"]]  # Añadimos el origen
-            print("procesar_tabla.09.1", insert_query)
-            print("procesar_tabla.09.2", registro_destino)
+            # print("procesar_tabla.09.1", insert_query)
+            # print("procesar_tabla.09.2", registro_destino)
             cursor_mysql.execute(insert_query, registro_destino)
 
         conn_mysql.commit()

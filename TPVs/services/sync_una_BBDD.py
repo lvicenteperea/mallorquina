@@ -9,10 +9,6 @@ ejecutar_proceso: Sincroniza todas las tablas de una tienda. Recibe un json con 
   - Ultima_Fecha_Carga str: fecha en la que se sincronizó la última vez
 '''
 def procesar_BBDD(reg_cfg_bbdd, conn_mysql):
-    # id_tabla: int, nombre: str, conexion: str, fec_ultima_carga: str):
-    print("------------------------")
-    print(reg_cfg_bbdd)
-    print("------------------------")
     try:
         # conn_mysql = conexion_mysql("General")
         cursor_mysql = conn_mysql.cursor(dictionary=True)
@@ -33,7 +29,6 @@ def procesar_BBDD(reg_cfg_bbdd, conn_mysql):
                 # Aquí va la lógica específica para cada tabla
                 procesar_tabla(tabla, conn_mysql)
 
-                print("sync.07")
                 cursor_mysql.execute(
                     "UPDATE mll_tablas_bbdd SET Fecha_Ultima_Actualizacion = %s WHERE ID = %s",
                     (datetime.now(), tabla["ID"])
@@ -41,8 +36,12 @@ def procesar_BBDD(reg_cfg_bbdd, conn_mysql):
                 conn_mysql.commit()
         
     except Exception as e:
-        print(f"Error durante el proceso: {e}")
-
+        print("")
+        print("---------------------------")
+        print(f"ERROR durante el proceso: {e}")
+        print("---------------------------")
+        print("")
+        
     finally:
         cursor_mysql.close()
 

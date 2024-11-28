@@ -5,7 +5,7 @@ def obtener_configuracion_general():
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM mll_cfg LIMIT 1")
     config = cursor.fetchone()
-    print(config)
+    # print(config)
     cursor.close()
     conn.close()
     return config

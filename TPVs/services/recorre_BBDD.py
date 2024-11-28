@@ -2,7 +2,7 @@ from datetime import datetime
 from config.database import conexion_mysql
 from models.mll_cfg import obtener_configuracion_general, actualizar_en_ejecucion
 from services.sendgrid_service import enviar_email
-from TPVs.services.sync_una_BBDD import procesar_BBDD
+from services.sync_una_BBDD import procesar_BBDD
 
 def ejecutar_proceso():
     config = obtener_configuracion_general()
@@ -23,31 +23,34 @@ def ejecutar_proceso():
         cursor_mysql = conn_mysql.cursor(dictionary=True)
 
         cursor_mysql.execute("SELECT * FROM mll_cfg_bbdd")
-        tablas_bbdd = cursor_mysql.fetchall()
+        lista_bbdd = cursor_mysql.fetchall()
 
-        for tabla in tablas_bbdd:
+        for bbdd in lista_bbdd:
+                print("")
                 print("---------------------------------------------------------------------------------------")
-                print(f"Procesando TIENDA: {tabla}")
+                print(f"Procesando TIENDA: {bbdd}")
                 print("---------------------------------------------------------------------------------------")
+                print("")
 
-                # Aquí va la lógica específica para cada tabla
-                procesar_BBDD(tabla, conn_mysql)
+                # Aquí va la lógica específica para cada bbdd
+                procesar_BBDD(bbdd, conn_mysql)
 
-                print("sync.07")
                 cursor_mysql.execute(
                     "UPDATE mll_cfg_bbdd SET Ultima_fecha_Carga = %s WHERE ID = %s",
-                    (datetime.now(), tabla["ID"])
+                    (datetime.now(), bbdd["ID"])
                 )
                 conn_mysql.commit()
 
-        cursor_mysql.closed()
-
     except Exception as e:
-        print(f"Error durante el proceso: {e}")
-
+        print("")
+        print("---------------------------")
+        print(f"ERROR durante el proceso: {e}")
+        print("---------------------------")
+        print("")
+        
 
     finally:
-        conn_mysql.closed()
+        conn_mysql.close()
         actualizar_en_ejecucion(0)
         enviar_email(
             config["Lista_emails"],
