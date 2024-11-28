@@ -17,10 +17,13 @@ def procesar_tabla(tabla, conn_mysql):
 
     # Obtener campos de la tabla
     campos = obtener_campos_tabla(conn_mysql, tabla["ID_Tabla"])
-    
+
+    '''
+    no puede estar aquí porque cada vez que lea una bbdd diferente borro la tabla y solo se debe borrar en la primera carga, si podemos hacer esto.
     # Borrar tabla si corresponde
     if borrar_tabla:
-        drop_tabla(conn_mysql, nombre_tabla_destino)
+       drop_tabla(conn_mysql, nombre_tabla_destino)
+    '''
 
     # Crear tabla si no existe
     crear_tabla_destino(conn_mysql, nombre_tabla_destino, campos)

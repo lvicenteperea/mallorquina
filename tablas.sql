@@ -28,10 +28,14 @@ CREATE TABLE `mll_campos` (
   `Nombre` varchar(100) NOT NULL,
   `Nombre_Destino` varchar(100) DEFAULT NULL,
   `Tipo` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_Tabla` (`ID_Tabla`),
   CONSTRAINT `mll_campos_ibfk_1` FOREIGN KEY (`ID_Tabla`) REFERENCES `mll_tablas` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,8 +60,11 @@ CREATE TABLE `mll_cfg` (
   `Lista_emails` varchar(500) NOT NULL,
   `Credenciales` json NOT NULL,
   `En_Ejecucion` tinyint(1) DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,8 +93,11 @@ CREATE TABLE `mll_cfg_bbdd` (
   `Nombre` varchar(100) NOT NULL,
   `Conexion` json NOT NULL COMMENT 'Contiene datos como host, usuario, contraseña, etc.',
   `Ultima_Fecha_Carga` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,8 +122,11 @@ CREATE TABLE `mll_tablas` (
   `Tabla_Origen` varchar(100) NOT NULL,
   `Tabla_Destino` varchar(100) DEFAULT NULL,
   `Borrar_Tabla` tinyint(1) DEFAULT '0' COMMENT 'Si se borra la tabla de BD_Mallorquina',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,12 +152,15 @@ CREATE TABLE `mll_tablas_bbdd` (
   `ID_Tabla` int NOT NULL COMMENT 'Relación con la tabla MLL_tablas',
   `Fecha_Ultima_Actualizacion` datetime DEFAULT NULL,
   `Cada_Cuanto_Ejecutar` int DEFAULT '1' COMMENT 'Intervalo en días para ejecutar',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `modified_by` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_BBDD` (`ID_BBDD`),
   KEY `ID_Tabla` (`ID_Tabla`),
   CONSTRAINT `mll_tablas_bbdd_ibfk_1` FOREIGN KEY (`ID_BBDD`) REFERENCES `mll_cfg_bbdd` (`ID`),
   CONSTRAINT `mll_tablas_bbdd_ibfk_2` FOREIGN KEY (`ID_Tabla`) REFERENCES `mll_tablas` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
