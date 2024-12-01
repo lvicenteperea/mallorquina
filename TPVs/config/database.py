@@ -13,7 +13,9 @@ def conexion_sqlserver(conexion_json):
     # print("con_sqlserver.01", f"DRIVER={{SQL Server}};SERVER={conexion_json['host']};"
     #    f"DATABASE={conexion_json['database']};UID={conexion_json['user']};PWD={conexion_json['password']}")
 
+    print(pyodbc.drivers())
+
     return pyodbc.connect(
-        f"DRIVER={{SQL Server}};SERVER={conexion_json['host']};"
+        f"DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={conexion_json['host']};"
         f"DATABASE={conexion_json['database']};UID={conexion_json['user']};PWD={conexion_json['password']}"
     )
